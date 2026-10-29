@@ -1,0 +1,113 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Sora Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink-950: #04060f;
+  --color-ink-900: #060918;
+  --color-ink-850: #0a0f24;
+  --color-ink-800: #0f1631;
+  --color-ink-700: #1a2347;
+  --color-mist: #a9b3d6;
+  --color-glow-cyan: #3fd0ef;
+  --color-glow-blue: #8fb3ff;
+  --color-glow-violet: #a78bfa;
+  --color-sun: #fbbf3c;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  background: var(--color-ink-900);
+}
+
+body {
+  @apply bg-ink-900 font-sans text-slate-100 antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-glow-violet) 45%, transparent);
+}
+
+/* Ruído de fundo + halos */
+.cosmos {
+  background:
+    radial-gradient(60rem 40rem at 85% -10%, rgb(99 102 241 / 0.18), transparent 60%),
+    radial-gradient(50rem 36rem at -10% 20%, rgb(56 189 248 / 0.12), transparent 60%),
+    radial-gradient(40rem 30rem at 50% 110%, rgb(167 139 250 / 0.12), transparent 60%);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.5;
+  pointer-events: none;
+  animation: drift 18s ease-in-out infinite alternate;
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(2rem, -1.5rem, 0) scale(1.08);
+  }
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(251 191 60 / 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgb(251 191 60 / 0);
+  }
+}
+
+.breathe {
+  animation: breathe 4s ease-in-out infinite;
+}
+
+/* Revelação ao rolar (classe adicionada via IntersectionObserver) */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.hairline {
+  background: linear-gradient(90deg, transparent, rgb(143 179 255 / 0.35), transparent);
+  height: 1px;
+}
+
+.text-aurora {
+  background: linear-gradient(100deg, #e2e8ff 10%, var(--color-glow-blue) 45%, var(--color-glow-violet) 80%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+dialog::backdrop {
+  background: rgb(4 6 15 / 0.75);
+  backdrop-filter: blur(4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .orb,
+  .breathe {
+    animation: none;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

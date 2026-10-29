@@ -1,0 +1,22 @@
+node_modules
+dist
+*.local
+.DS_Store
+
+# Nunca publicar instaladores, dados ou backups do aplicativo
+*.exe
+*.msi
+*.sqlite
+*.sqlite3
+*.db
+*.db-*
+*.sqlite-*
+*backup*.json
+.env
+.env.*
+auth.json
+*.pem
+*.key
+*.pfx
+*.zip
+*.7z
